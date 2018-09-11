@@ -23,9 +23,9 @@ from .views import home_page, login_page, buy_page
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', home_page),
-    url(r'^login/$', login_page),
-    url(r'^buy/$', buy_page),
+    url(r'^$', home_page, name='home'),
+    url(r'^login/$', login_page,name='login'),
+    url(r'^buy/$', buy_page,name='buy'),
 ]
 
 if settings.DEBUG:
