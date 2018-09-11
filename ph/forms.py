@@ -46,8 +46,5 @@ class BuyForm(forms.Form):
 										"placeholder":"Quantity",
 												}
 									))
-	def clean_Medicament(self):
-		if Medicament.DoesNotExist:
-			raise forms.ValidationError("Medicament not exist")
-		return 
+
 

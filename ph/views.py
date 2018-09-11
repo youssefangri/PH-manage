@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, get_user_model
 from django.shortcuts import render, redirect
 
+
 from .forms import LoginFrom, BuyForm
 from Medicament.models import Medicament
 
@@ -46,9 +47,14 @@ def buy_page(request):
 	if form.is_valid():
 		selected_Medicament = form.cleaned_data.get("Medicament")
 		selected_Quantity = form.cleaned_data.get("Quantity")
-		M = Medicament.objects.get(title=selected_Medicament)
-		M.quantity = (M.quantity)-(selected_Quantity)	
-		M.save()
+		try:
+			M = Medicament.objects.get(title=selected_Medicament)
+			M.quantity = (M.quantity)-(selected_Quantity)	
+			M.save()
+			content["status"]="secceful"
+		except:
+			content["status"]="error"
+			pass
 	return render(request,"oper/buy.html",content)	
 	
 User = get_user_model()

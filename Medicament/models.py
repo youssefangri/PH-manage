@@ -21,3 +21,9 @@ class Medicament(models.Model):
 		super(Medicament, self).save(*args, **kwargs)
 	def __str__(self):
 		return self.title
+		
+	def clean_Medicament(self):
+		print(Medicament)
+		if Medicament.DoesNotExist:
+			raise forms.ValidationError("Medicament not exist")
+		return

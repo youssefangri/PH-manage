@@ -20,9 +20,11 @@
 				   <div class='col-md-3 col-12 mx-auto'>
 							{% if request.user.is_authenticated %}
 							
-							{{ form }}
+							{{ form.as_ul }}
 						  
 							<button type="submit" class="btn btn-primary">submit</button>
+							</br>
+							{{status}}
 							{% endif %}
 					</div>
 			</div>
