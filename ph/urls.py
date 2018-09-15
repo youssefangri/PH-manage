@@ -18,14 +18,16 @@ from django.conf.urls.static import static
 
 from django.conf.urls import url
 from django.contrib import admin
+#from django.contrib.auth.views import LogoutView
 
-from .views import home_page, login_page, buy_page
+from .views import home_page, login_page, buy_page, Logout
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', home_page, name='home'),
     url(r'^login/$', login_page,name='login'),
     url(r'^buy/$', buy_page,name='buy'),
+    url(r'^logout/$', Logout.as_view(), name='logout'),
 ]
 
 if settings.DEBUG:

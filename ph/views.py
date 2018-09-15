@@ -1,17 +1,24 @@
 from django.contrib.auth import authenticate, login, get_user_model
 from django.shortcuts import render, redirect
-
+from django.contrib.auth.views import LogoutView
 
 from .forms import LoginFrom, BuyForm
 from Medicament.models import Medicament
 
+User = get_user_model()
+
+class Logout(LogoutView):
+	template_name = 'home_page.html'
+	
+	
 def home_page(request):
 	queryset = Medicament.objects.all()
 	content = {	
-		"title":"pharmacie",
+		"title":"Pharmacie Home page",
 	}
 	if request.user.is_authenticated():
-		content["object_list"]= queryset
+		content["medicament_list"]= queryset
+		content["username"]= request.user
 	return render(request, "home_page.html",content)
 
 def login_page(request):
@@ -31,9 +38,9 @@ def login_page(request):
 			#content['form']= LoginFrom()
 			return redirect("/")
 		else :
-			print('Error')
+			content["status"]="error"
 		
-	print(request.user.is_authenticated())
+	#print(request.user.is_authenticated())
 	return render(request,"auth/login.html",content)
 
 
@@ -49,13 +56,17 @@ def buy_page(request):
 		selected_Quantity = form.cleaned_data.get("Quantity")
 		try:
 			M = Medicament.objects.get(title=selected_Medicament)
-			M.quantity = (M.quantity)-(selected_Quantity)	
-			M.save()
-			content["status"]="secceful"
+			M.quantity = (M.quantity)-(selected_Quantity)
+			if M.quantity < 0:
+				content["status"]="error"
+				pass
+			else:
+				M.save()
+				content["status"]="success"
 		except:
 			content["status"]="error"
 			pass
 	return render(request,"oper/buy.html",content)	
 	
-User = get_user_model()
+
 	
