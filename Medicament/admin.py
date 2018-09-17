@@ -5,3 +5,5 @@ from .models import Medicament
 # Register your models here.
 
 admin.site.register(Medicament)
+
+

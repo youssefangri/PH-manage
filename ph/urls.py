@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 
 from django.conf.urls import url
 from django.contrib import admin
-#from django.contrib.auth.views import LogoutView
+from django.contrib.auth.views import LogoutView
 
 from .views import home_page, login_page, buy_page, Logout
 
@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^login/$', login_page,name='login'),
     url(r'^buy/$', buy_page,name='buy'),
     url(r'^logout/$', Logout.as_view(), name='logout'),
+    #url(r'^logout/$', LogoutView.as_view(), name='logout', {'next_page': '/login'}),
 ]
 
 if settings.DEBUG:
