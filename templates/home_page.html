@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+	<div class='text-center'>
+		
+					<h1>Hello, {{ username }}</h1>
+					</br>
+							{% if request.user.is_authenticated %}
+							
+						<!-- Medicament list 	
+						<div class='row'>
+						<div class='col'>
+							<h1>Premeim</h1>
+							{% for obj in object_list %}
+							{{ obj.title }}
+							{{ obj.price }}
+							{{ obj.quantity }}</br>
+							{% endfor %}
+						</div>	
+						</div>
+						
+						<!-- Medicament list -->	
+						<div class="row">
+									<div class='col-md-5 col-1 mx-auto'>
+									<table class="table">
+										  <thead>
+											<tr>
+											  <th scope="col">ID</th>
+											  <th scope="col">Medicament</th>
+											  <th scope="col">Price</th>
+											  <th scope="col">Quantity</th>
+											</tr>
+										  </thead>
+										  <tbody>
+											  {% for obj in medicament_list %}
+													<tr>
+													  <th scope="row">{{ obj.id }}</th>
+													  <td>{{ obj.title }}</td>
+													  <td>{{ obj.price }}</td>
+													  <td>{{ obj.quantity }}</td>
+													</tr>
+												{% endfor %}
+										  </tbody>
+										</table>
+										
+								</div>
+								
+					</div>
+				</div>
+							 {% endif %}
+
+{% endblock %}
