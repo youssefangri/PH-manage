@@ -38,8 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Medicament',
-    #'accounts',
-    
+
 ]
 
 MIDDLEWARE = [
@@ -72,7 +71,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ph.wsgi.application'
 
-#AUTH_USER_MODEL = 'accounts.User'
+
 
 
 # Database
@@ -133,7 +132,3 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "static_root
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
-
-
-
-

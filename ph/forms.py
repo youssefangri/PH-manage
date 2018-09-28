@@ -4,9 +4,9 @@ from django.contrib.auth import get_user_model
 from Medicament.models import Medicament
 
 class LoginFrom(forms.Form):
-	
+
 	username = forms.CharField(
-								
+
 			widget= forms.TextInput(
 										attrs={
 										"class":"form-control",
@@ -15,20 +15,20 @@ class LoginFrom(forms.Form):
 												}
 									)
 								)
-			
-			
+
+
 	password = forms.CharField(
-	
+
 			widget = forms.PasswordInput(
-			
+
 										attrs={
 										"class":"form-control",
 										"id":"password",
 										"placeholder":"Password"
 											}
-										)	
+										)
 								)
-								
+
 User = get_user_model()
 
 class BuyForm(forms.Form):
@@ -44,7 +44,6 @@ class BuyForm(forms.Form):
 										"class":"form-control",
 										"id":"Quantity",
 										"placeholder":"Quantity",
+										"value":1
 												}
 									))
-
-

@@ -3,24 +3,12 @@
 
 {% block content %}
 	<div class='text-center'>
-		
+
 					<h1>Hello, {{ username }}</h1>
 					</br>
 							{% if request.user.is_authenticated %}
-							
-						<!-- Medicament list 	
-						<div class='row'>
-						<div class='col'>
-							<h1>Premeim</h1>
-							{% for obj in object_list %}
-							{{ obj.title }}
-							{{ obj.price }}
-							{{ obj.quantity }}</br>
-							{% endfor %}
-						</div>	
-						</div>
-						
-						<!-- Medicament list -->	
+
+
 						<div class="row">
 									<div class='col-md-5 col-1 mx-auto'>
 									<table class="table">
@@ -43,9 +31,9 @@
 												{% endfor %}
 										  </tbody>
 										</table>
-										
+
 								</div>
-								
+
 					</div>
 				</div>
 							 {% endif %}

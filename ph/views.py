@@ -9,16 +9,20 @@ User = get_user_model()
 
 class Logout(LogoutView):
 	template_name = 'home_page.html'
-	
-	
+
+
 def home_page(request):
 	queryset = Medicament.objects.all()
-	content = {	
+	content = {
 		"title":"Pharmacie Home page",
 	}
 	if request.user.is_authenticated():
 		content["medicament_list"]= queryset
 		content["username"]= request.user
+	if request.method == 'POST':
+		qs = request.POST.get('q')
+		queryset = Medicament.objects.filter(title__contains = qs )
+		content["medicament_list"]= queryset
 	return render(request, "home_page.html",content)
 
 def login_page(request):
@@ -27,7 +31,7 @@ def login_page(request):
 		"Title":"Login Page",
 		"form":form
 	}
-	
+
 	if form.is_valid():
 		print(form.cleaned_data)
 		username = form.cleaned_data.get('username')
@@ -39,7 +43,7 @@ def login_page(request):
 			return redirect("/")
 		else :
 			content["status"]="error"
-		
+
 	#print(request.user.is_authenticated())
 	return render(request,"auth/login.html",content)
 
@@ -50,7 +54,7 @@ def buy_page(request):
 		"Title":"Buy Page",
 		"form":form
 	}
-	
+
 	if form.is_valid():
 		selected_Medicament = form.cleaned_data.get("Medicament")
 		selected_Quantity = form.cleaned_data.get("Quantity")
@@ -66,7 +70,4 @@ def buy_page(request):
 		except:
 			content["status"]="error"
 			pass
-	return render(request,"oper/buy.html",content)	
-	
-
-	
+	return render(request,"oper/buy.html",content)

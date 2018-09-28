@@ -2,8 +2,9 @@ from django.contrib import admin
 
 from .models import Medicament
 
-# Register your models here.
+class MedicamentAdmin(admin.ModelAdmin):
+    list_display =  ['__str__', 'price', 'quantity']
+    class Meta:
+        model = Medicament
 
-admin.site.register(Medicament)
-
-
+admin.site.register(Medicament, MedicamentAdmin)
