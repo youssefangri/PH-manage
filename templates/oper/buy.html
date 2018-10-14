@@ -3,24 +3,34 @@
 
 
 {% block content %}
+	<script src="{% static 'js/jquery-2.1.1.js' %}"></script>
+	<script src="{% static 'js/jquery.autocomplete.min.js' %}"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/autocomplete-styles.css' %}">
 	<div class='text-center'>
-        
       </div>
 			<form method='POST'> {% csrf_token %}
 			  <div class="form-group">
 				   <div class='col-md-5 col-12 mx-auto'>
 							{% if request.user.is_authenticated %}
-							
-							{{ form.as_ul }}
+								{{ form }}
 							</br>
 							<button type="submit" class="btn btn-primary">submit</button>
 							</br>
 							</br>
-							<div {% if status == 'success' %} class="alert alert-success" {% elif status == 'error' %} class="alert alert-danger" {% endif %}role="alert">{{status}}</div> 
+							<div {% if status == 'success' %} class="alert alert-success" {% elif status == 'error' %} class="alert alert-danger" {% endif %}role="alert">{{status}}</div>
 							{% endif %}
 					</div>
 					</form>
 			</div>
-			
-{%endblock%}
+		<script>
+				var arr=[];
+				{% for i in medicament_list %}
+						arr.push("{{i}}");
+				{% endfor %}
+				$('#Medicament').autocomplete({
+					lookup : arr
+				})
 
+		</script>
+
+{%endblock%}

@@ -49,25 +49,32 @@ def login_page(request):
 
 
 def buy_page(request):
-	form = BuyForm(request.POST or None)
-	content = {
+    queryset = Medicament.objects.all()
+    list_med = []
+    for j in queryset:
+	    list_med.append(j.title)
+
+    form = BuyForm(request.POST or None)
+    content = {
 		"Title":"Buy Page",
 		"form":form
 	}
+    print(list_med)
+    content["medicament_list"]= list_med
 
-	if form.is_valid():
-		selected_Medicament = form.cleaned_data.get("Medicament")
-		selected_Quantity = form.cleaned_data.get("Quantity")
-		try:
-			M = Medicament.objects.get(title=selected_Medicament)
-			M.quantity = (M.quantity)-(selected_Quantity)
-			if M.quantity < 0:
-				content["status"]="error"
-				pass
-			else:
-				M.save()
-				content["status"]="success"
-		except:
-			content["status"]="error"
-			pass
-	return render(request,"oper/buy.html",content)
+    if form.is_valid():
+        selected_Medicament = form.cleaned_data.get("Medicament")
+        selected_Quantity = form.cleaned_data.get("Quantity")
+        try:
+        	M = Medicament.objects.get(title=selected_Medicament)
+        	M.quantity = (M.quantity)-(selected_Quantity)
+        	if M.quantity < 0:
+        		content["status"]="error"
+        		pass
+        	else:
+        		M.save()
+        		content["status"]="success"
+        except:
+        	content["status"]="error"
+        	pass
+    return render(request,"oper/buy.html",content)
