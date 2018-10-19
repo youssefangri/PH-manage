@@ -12,6 +12,7 @@ class LoginFrom(forms.Form):
 										"class":"form-control",
 										"id":"username",
 										"placeholder":"Username",
+										"autocomplete":"off"
 												}
 									)
 								)
