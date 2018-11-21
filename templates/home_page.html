@@ -6,36 +6,72 @@
 
 					<h1>Hello, {{ username }}</h1>
 					</br>
-							{% if request.user.is_authenticated %}
 
+	</div>
 
-						<div class="row">
-									<div class='col-md-5 col-1 mx-auto'>
-									<table class="table">
-										  <thead>
-											<tr>
-											  <th scope="col">ID</th>
-											  <th scope="col">Medicament</th>
-											  <th scope="col">Price</th>
-											  <th scope="col">Quantity</th>
-											</tr>
-										  </thead>
-										  <tbody>
-											  {% for obj in medicament_list %}
-													<tr>
-													  <th scope="row">{{ obj.id }}</th>
-													  <td>{{ obj.title }}</td>
-													  <td>{{ obj.price }}</td>
-													  <td>{{ obj.quantity }}</td>
-													</tr>
-												{% endfor %}
-										  </tbody>
+				{% if request.user.is_authenticated %}
+							<div class="row ">
+										<div class='col-md-5 col-1 mx-auto'>
+
+											<form action="update/" method="post"> {% csrf_token %}
+										<table class="table">
+																<thead>
+																					<tr>
+																						<th scope="col">ID</th>
+																						<th scope="col">Medicament</th>
+																						<th scope="col">Price</th>
+																						<th scope="col">Quantity</th>
+																						<th scope="col">Add to cart</th>
+																					</tr>
+																</thead>
+																<tbody>
+																					{% for obj in medicament_list %}
+																						<tr>
+																							<th scope="row">{{ obj.id }}</th>
+																							<td>{{ obj.title }}</td>
+																							<td>{{ obj.price }}</td>
+																							<td>{{ obj.quantity }}</td>
+																							{% if obj in cart.Medicaments.all %}
+																							<td><button type="submit" class="btn btn-primary">In cart</button></td>
+																							{% else %}
+																							<td><button name="selected_Med_button" value="{{ obj.id }}" type="submit" class="btn btn-success">Add to cart</button></td>
+																							{% endif %}
+																						</tr>
+																					{% endfor %}
+																</tbody>
 										</table>
+									</form>
+										</div>
+
+										<div class='col-md-5 col-1 mx-auto'>
+											<form action="update/" method="post"> {% csrf_token %}
+										<table class="table">
+																<thead>
+																					<tr>
+																						<th scope="col">Medicament</th>
+																						<th scope="col">Price</th>
+																						<th scope="col">Remove for cart</th>
+																					</tr>
+																</thead>
+																<tbody>
+																					{% for med in cart.Medicaments.all %}
+																						<tr>
+																							<td>{{ med.title }}</td>
+																							<td>{{ med.price }}</td>
+																							<td><button name="selected_Med_button" value="{{ med.id }}" type="submit" class="btn btn-danger">Remove</button></td>
+																						</tr>
+																						{% endfor %}
+																						<tr>
+																				      <th colspan="2" scope="row">Total</th>
+																				      <td>{{ cart.total }} Dh</td>
+																				    </tr>
+																</tbody>
+										</table>
+									</form>
+										</div>
 
 								</div>
 
-					</div>
-				</div>
-							 {% endif %}
+					 {% endif %}
 
 {% endblock %}

@@ -4,6 +4,7 @@ from django.contrib.auth.views import LogoutView
 
 from .forms import LoginFrom, BuyForm
 from Medicament.models import Medicament
+from cart.models import Cart
 
 User = get_user_model()
 
@@ -13,8 +14,10 @@ class Logout(LogoutView):
 
 def home_page(request):
 	queryset = Medicament.objects.all()
+	cart_obj, new_obj = Cart.objects.new_or_get(request)
 	content = {
 		"title":"Pharmacie Home page",
+		"cart":cart_obj
 	}
 	if request.user.is_authenticated():
 		content["medicament_list"]= queryset
@@ -23,7 +26,12 @@ def home_page(request):
 		qs = request.POST.get('q')
 		queryset = Medicament.objects.filter(title__contains = qs )
 		content["medicament_list"]= queryset
+    #content["cart"] = cart_obj.Medicaments.all()
+	#print(dir(cart_obj))
 	return render(request, "home_page.html",content)
+
+
+
 
 def login_page(request):
 	form = LoginFrom(request.POST or None)
@@ -49,32 +57,25 @@ def login_page(request):
 
 
 def buy_page(request):
-    queryset = Medicament.objects.all()
-    list_med = []
-    for j in queryset:
-	    list_med.append(j.title)
-
-    form = BuyForm(request.POST or None)
-    content = {
+	form = BuyForm(request.POST or None)
+	content = {
 		"Title":"Buy Page",
 		"form":form
 	}
-    print(list_med)
-    content["medicament_list"]= list_med
 
-    if form.is_valid():
-        selected_Medicament = form.cleaned_data.get("Medicament")
-        selected_Quantity = form.cleaned_data.get("Quantity")
-        try:
-        	M = Medicament.objects.get(title=selected_Medicament)
-        	M.quantity = (M.quantity)-(selected_Quantity)
-        	if M.quantity < 0:
-        		content["status"]="error"
-        		pass
-        	else:
-        		M.save()
-        		content["status"]="success"
-        except:
-        	content["status"]="error"
-        	pass
-    return render(request,"oper/buy.html",content)
+	if form.is_valid():
+		selected_Medicament = form.cleaned_data.get("Medicament")
+		selected_Quantity = form.cleaned_data.get("Quantity")
+		try:
+			M = Medicament.objects.get(title=selected_Medicament)
+			M.quantity = (M.quantity)-(selected_Quantity)
+			if M.quantity < 0:
+				content["status"]="error"
+				pass
+			else:
+				M.save()
+				content["status"]="success"
+		except:
+			content["status"]="error"
+			pass
+	return render(request,"oper/buy.html",content)
