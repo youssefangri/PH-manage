@@ -16,14 +16,15 @@ class CustomManager(models.Manager):
 
 
 class Command(models.Model):
-    user        = models.ForeignKey(User, null=True, blank=True)
-    Medicaments = models.ManyToManyField(Medicament, blank=True)
-    subtotal    = models.DecimalField(default=0.00, max_digits=100, decimal_places=2)
-    total       = models.DecimalField(default=0.00, max_digits=100, decimal_places=2)
-    timestamp   = models.DateTimeField(auto_now_add=True)
+	user			= models.ForeignKey(User, null=True, blank=True)
+	Medicaments		= models.ManyToManyField(Medicament, blank=True)
+	Comment			= models.CharField(max_length=120, blank=True, null=True)
+	subtotal		= models.DecimalField(default=0.00, max_digits=100, decimal_places=2)
+	total			= models.DecimalField(default=0.00, max_digits=100, decimal_places=2)
+	timestamp		= models.DateTimeField(auto_now_add=True)
 
-    objects = CustomManager()
-    def save(self, *args, **kwargs):
-        super(Command, self).save(*args, **kwargs)
-    def __str__(self):
-        return str(self.id)
+	objects = CustomManager()
+	def save(self, *args, **kwargs):
+		super(Command, self).save(*args, **kwargs)
+	def __str__(self):
+		return str(self.id)

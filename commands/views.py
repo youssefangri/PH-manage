@@ -19,6 +19,7 @@ def checkout(request):
 
         M.subtotal = cart_obj.subtotal
         M.total = cart_obj.total
+        M.Comment = request.POST.get("Comment")
         M.save()
         #substrac quantity
         content = {}
