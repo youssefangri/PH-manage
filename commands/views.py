@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from .models import Command
 from cart.models import Cart
+from Medicament.models import Medicament
+
 
 def checkout(request):
     try:
@@ -18,6 +20,19 @@ def checkout(request):
         M.subtotal = cart_obj.subtotal
         M.total = cart_obj.total
         M.save()
+        #substrac quantity
+        content = {}
+        for med in med_select:
+            try:
+                med.quantity = (med.quantity)-1
+                if med.quantity < 0:
+                    content["status"]="error quantity"
+                else:
+                    med.save()
+                    content["status"]="success"
+            except:
+                content["status"]="error"
+                pass
         #delet session to create another
         cart_obj.delete()
     except:
