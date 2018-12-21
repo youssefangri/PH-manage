@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+  <h1>Commands history</h1>
+</br>
+</br>
+  <table class="table">
+              <thead>
+                        <tr>
+                          <th scope="col">Opreration ID</th>
+                          <th scope="col">User</th>
+                          <th scope="col">Time</th>
+                          <th scope="col">Medicaments</th>
+                          <th scope="col">Total price</th>
+                          <th scope="col">Comments</th>
+                        </tr>
+              </thead>
+              <tbody>
+                        {% for cmd in commands %}
+                          <tr>
+                            <th scope="row">{{ cmd.id }}</th>
+                            <td>{{ cmd.user }}</td>
+                            <td>{{ cmd.timestamp }}</td>
+                            <td>  {% for med in cmd.Medicaments.all %}
+                                    {{ med.title }}
+                                  </br>
+                                  {% endfor %}
+                            </td>
+                            <td>{{ cmd.total }}</td>
+                            <td>{{ cmd.Comment }}</td>
+
+                          </tr>
+                        {% endfor %}
+              </tbody>
+  </table>
+</div>
+{% endblock %}

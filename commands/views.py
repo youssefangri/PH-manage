@@ -39,3 +39,10 @@ def checkout(request):
     except:
         print ("error")
     return redirect("/")
+
+def Command_history(request):
+    all_commands = Command.objects.all()
+    content = {
+        "commands" : all_commands
+    }
+    return render(request, "commands/home.html",content)

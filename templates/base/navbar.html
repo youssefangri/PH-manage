@@ -2,7 +2,7 @@
 {% url 'buy' as buy_url %}
 {% url 'login' as login_url %}
 {% url 'logout' as logout_url %}
-{% url 'cart' as cart_url %}
+{% url 'history' as history_url %}
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
    <div class='container'>
@@ -22,8 +22,8 @@
       <li class="nav-item {% if request.path == buy_url %}active{% endif %}">
         <a class="nav-link" href="{{ buy_url }}">Buy Operation</a>
       </li>
-      <li class="nav-item {% if request.path == cart_url %}active{% endif %}">
-        <a class="nav-link" href="{{ cart_url }}">Cart</a>
+      <li class="nav-item {% if request.path == history_url %}active{% endif %}">
+        <a class="nav-link" href="{{ history_url }}">Operation History</a>
       </li>
 		{% if request.user.is_authenticated %}
       <li class="nav-item {% if request.path == logout_url %}active{% endif %}">
