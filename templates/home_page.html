@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+<section class="body-section">
 	<div class='text-center'>
 
 					<h1>Hello, {{ username }}</h1>
@@ -81,7 +82,8 @@
 										</div>
 
 								</div>
-
+</section>
 					 {% endif %}
 
+<a href="/admin" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white">Admin Page</a>
 {% endblock %}
