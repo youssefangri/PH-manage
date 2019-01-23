@@ -6,6 +6,40 @@
   <h1>Commands history</h1>
 </br>
 </br>
+<div class="container">
+    <div class="row">
+        <div class='col-sm-4'>
+            <form class="form-group" action="" method="post"> {% csrf_token %}
+              <p>
+            <label for="SelectMonth">Filter by Month:</label>
+            <input type="text" class="form-control mb-2" name="date" placeholder="01-2019" autocomplete="off" id='datepickermonth'>
+            <button type="submit" class="btn btn-primary mb-2">Go</button>
+          </p>
+            </form>
+        </div>
+        <div class='col-sm-4'>
+            <form class="form-group" action="" method="post"> {% csrf_token %}
+              <p>
+            <label for="SelectMonth">Filter by year:</label>
+            <input type="text" class="form-control mb-2" name="date" placeholder="2019" autocomplete="off" id='datepickeryear'>
+            <button type="submit" class="btn btn-primary mb-2">Go</button>
+          </p>
+            </form>
+        </div>
+        <div class='col-sm-4'>
+            <form class="form-group" action="" method="post"> {% csrf_token %}
+              <p>
+            <label for="SelectMonth">Filter by day:</label>
+            <input type="text" class="form-control mb-2" name="date" placeholder="01-01-2019" autocomplete="off" id='datepickerday'>
+            <button type="submit" class="btn btn-primary mb-2">Go</button>
+          </p>
+            </form>
+        </div>
+    </div>
+</div>
+</br>
+</br>
+  <h6> Commands for {{ date }} : </h6>
   <table class="table">
               <thead>
                         <tr>
